@@ -71,4 +71,10 @@ object CardProvider {
         cards[index] = updatedCard
         return index to updatedCard
     }
+
+    fun deleteCard(card: CardItem): Int {
+        val index = cards.indexOf(card)
+        cards.remove(card)
+        return index
+    }
 }
