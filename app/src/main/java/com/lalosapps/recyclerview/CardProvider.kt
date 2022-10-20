@@ -1,5 +1,7 @@
 package com.lalosapps.recyclerview
 
+import kotlin.random.Random
+
 object CardProvider {
 
     val cards = mutableListOf(
@@ -76,5 +78,12 @@ object CardProvider {
         val index = cards.indexOf(card)
         cards.remove(card)
         return index
+    }
+
+    fun insertCard(): Int {
+        val id = Random.nextInt()
+        val newCard = CardItem(id, "Title $id", "Description $id", false)
+        cards.add(newCard)
+        return cards.size
     }
 }

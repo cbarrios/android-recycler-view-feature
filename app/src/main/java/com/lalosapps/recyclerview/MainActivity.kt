@@ -29,5 +29,11 @@ class MainActivity : AppCompatActivity() {
             }
         )
         binding.recycler.adapter = adapter
+
+        binding.addCardFab.setOnClickListener {
+            val index = CardProvider.insertCard()
+            adapter.notifyInsertion(index)
+            binding.recycler.smoothScrollToPosition(index)
+        }
     }
 }

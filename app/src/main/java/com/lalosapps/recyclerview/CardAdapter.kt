@@ -47,6 +47,10 @@ class CardAdapter(
         notifyItemRemoved(index)
     }
 
+    fun notifyInsertion(index: Int) {
+        notifyItemInserted(index)
+    }
+
     class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = CardItemBinding.bind(view)
 
