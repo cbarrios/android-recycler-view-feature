@@ -8,7 +8,8 @@ import com.lalosapps.recyclerview.databinding.CardItemBinding
 
 class CardAdapter(
     private val cards: MutableList<CardItem>,
-    val onCardClicked: (CardItem) -> Unit
+    val onCardClicked: (CardItem) -> Unit,
+    val onFavoriteToggled: (CardItem) -> Unit,
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -20,9 +21,12 @@ class CardAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = cards[position]
-        holder.bind(card)
-        holder.itemView.setOnClickListener {
-            onCardClicked(card)
+        with(holder) {
+            bind(card)
+            binding.apply {
+                root.setOnClickListener { onCardClicked(card) }
+                icon.setOnClickListener { onFavoriteToggled(card) }
+            }
         }
     }
 
@@ -30,8 +34,12 @@ class CardAdapter(
         return cards.size
     }
 
+    fun notifyChange(index: Int, card: CardItem) {
+        notifyItemChanged(index, card)
+    }
+
     class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = CardItemBinding.bind(view)
+        val binding = CardItemBinding.bind(view)
 
         fun bind(card: CardItem) {
             binding.apply {

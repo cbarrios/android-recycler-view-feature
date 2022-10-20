@@ -14,9 +14,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = CardAdapter(CardProvider.cards) {
-            binding.root.snack(it.title)
-        }
+        adapter = CardAdapter(
+            cards = CardProvider.cards,
+            onCardClicked = {
+                binding.root.snack(it.title)
+            },
+            onFavoriteToggled = {
+                val (index, card) = CardProvider.toggleFavorite(it)
+                adapter.notifyChange(index, card)
+            }
+        )
         binding.recycler.adapter = adapter
     }
 }
