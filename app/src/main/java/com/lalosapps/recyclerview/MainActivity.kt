@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = CardAdapter(CardProvider.cards)
+        adapter = CardAdapter(CardProvider.cards) {
+            binding.root.snack(it.title)
+        }
         binding.recycler.adapter = adapter
     }
 }

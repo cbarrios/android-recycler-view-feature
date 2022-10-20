@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lalosapps.recyclerview.databinding.CardItemBinding
 
 class CardAdapter(
-    private val cards: List<CardItem>
+    private val cards: MutableList<CardItem>,
+    val onCardClicked: (CardItem) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -18,7 +19,11 @@ class CardAdapter(
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        holder.bind(cards[position])
+        val card = cards[position]
+        holder.bind(card)
+        holder.itemView.setOnClickListener {
+            onCardClicked(card)
+        }
     }
 
     override fun getItemCount(): Int {
