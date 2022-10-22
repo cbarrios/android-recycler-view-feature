@@ -20,12 +20,14 @@ class MainActivity : AppCompatActivity() {
                 binding.root.snack(it.title)
             },
             onCardLongClicked = {
-                val index = CardProvider.deleteCard(it)
-                adapter.notifyDeletion(index)
+                CardProvider.deleteCard(it)?.let { index ->
+                    adapter.notifyDeletion(index)
+                }
             },
             onFavoriteToggled = {
-                val (index, card) = CardProvider.toggleFavorite(it)
-                adapter.notifyChange(index, card)
+                CardProvider.toggleFavorite(it)?.let { index ->
+                    adapter.notifyChange(index)
+                }
             }
         )
         binding.recycler.adapter = adapter

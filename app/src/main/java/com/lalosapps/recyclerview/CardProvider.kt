@@ -67,15 +67,17 @@ object CardProvider {
         )
     )
 
-    fun toggleFavorite(card: CardItem): Pair<Int, CardItem> {
+    fun toggleFavorite(card: CardItem): Int? {
         val index = cards.indexOf(card)
+        if (index == -1) return null
         val updatedCard = card.copy(favorite = !card.favorite)
         cards[index] = updatedCard
-        return index to updatedCard
+        return index
     }
 
-    fun deleteCard(card: CardItem): Int {
+    fun deleteCard(card: CardItem): Int? {
         val index = cards.indexOf(card)
+        if (index == -1) return null
         cards.remove(card)
         return index
     }

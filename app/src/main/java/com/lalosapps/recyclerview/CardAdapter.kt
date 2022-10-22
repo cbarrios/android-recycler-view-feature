@@ -39,8 +39,8 @@ class CardAdapter(
         return cards.size
     }
 
-    fun notifyChange(index: Int, card: CardItem) {
-        notifyItemChanged(index, card)
+    fun notifyChange(index: Int) {
+        notifyItemChanged(index)
     }
 
     fun notifyDeletion(index: Int) {
